@@ -12,4 +12,3 @@ echo -e "\n"
 echo -e "entrer votre selection"
 read answer
 }
-menu

@@ -1,5 +1,6 @@
 source menu.sh
 source help.sh
+source exit.sh
 while true
 do 
 clear
@@ -9,8 +10,10 @@ case "$answer" in
  2 );;
  3 );;
  4 );;
- 5 ) xhelp ;;
+ 5 ) xxhelp ;;
+ q ) xexit ;;
 esac
 #echo -e "entrer return pour continuer "
 #read input 
 done
+
