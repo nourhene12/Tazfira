@@ -1,13 +1,15 @@
 source menu.sh
 source help.sh
 source exit.sh
+source liste.sh
+source afficher.sh
 while true
 do 
-clear
+#clear
 menu
 case "$answer" in 
- 1 );;
- 2 );;
+ 1 )xaffiche;;
+ 2 )xliste;;
  3 );;
  4 );;
  5 ) xxhelp ;;
