@@ -2,7 +2,7 @@
 {
 yad \
    --entry \
-    --entry-label="entrez le nom du package que vous voulez lister" \
+    --entry-label="<span foreground='red'>entrer le nom du package:</span>" \
      --editable \
     --entry-text="$package" 
 }
@@ -12,6 +12,9 @@ lister()
 {
 package=`loulou`
 x=$(dpkg --list $package)
-yad  --title="lister" --info --text="$x" \
-	 --window-icon="$DECO" --image="$DECO" --image-on-top 
+yad  --title="lister"  --text="$x" \
+--window-icon="$DECO" --image="$DECO" --image-on-top \
+--field="Comments:":TXT \
+"$xs"  "$x"
+	 
 }

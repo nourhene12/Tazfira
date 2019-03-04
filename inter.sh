@@ -1,20 +1,19 @@
 #! /bin/bash
+#!/bin/sh
 source afficher.sh
 source lister.sh
 source desc.sh
 source sauvgarder.sh
-source xhelp.sh 
+source xhelp.sh
+
 
 TITBOX=Menu
-DECO=/home/nourhene/Desktop/tazfira/zofara.png
-SOUND=/home/nourhene/Desktop/tazfira/b.wav
-icon=/home/nourhene/Desktop/tazfira/hello.png
-
-
-
+DECO=/home/ghassen/Bureau/tazfira/siflet.png
+SOUND=/home/ghassen/Bureau/tazfira/b.wav
+icon=/home/ghassen/Bureau/tazfira/hello.png
 db_accueil()
 {
-yad --title=$TITBOX --text=" <span foreground='orange'><b><big><big>chosissez la commande:</big></big></b></span>" \
+yad --height=500 --title=$TITBOX --text=" <span foreground='orange'><b><big><big>chosissez la commande:</big></big></b></span>" \
 	--window-icon="$DECO" --image="$DECO" --image-on-top \
 	  --list --radiolist --no-headers \
 	--button=gtk-no:1 --button=gtk-yes:0 \
@@ -28,30 +27,31 @@ yad --title=$TITBOX --text=" <span foreground='orange'><b><big><big>chosissez la
 
 
 
+
 db_notification()
 {
-aplay $SOUND 
+aplay $SOUND &
 yad  --title=$TITBOX--timeout=4 --info --text="Validée \!" \
 	 --window-icon="$DECO" --image="$DECO" --image-on-top
+       
 }
+
 loginn()
-{ 
-yad    --width=400 --title="" --text="<span foreground='orange'><b><big><big>Please enter your details :</big></big></b></span>" \
-	--image="$icon" \
-	--button=gtk-quit:1  --button=gtk-yes:0 \
+{
+yad --width=400 --title="" --text="<span foreground='orange'><b><big><big>Please enter your details:</big></big></b></span>" \
+   --image="$icon" \
+--button=gtk-quit:1  --button=gtk-yes:0 \
 --form \
 --field="Last name" \
 --field="First name" \
 --field="Date of birth":DT
 w
 }
-	
-
-
 
 programme()
 {
 l=`loginn`
+
 while true
 do
 CHOIX=`db_accueil`
@@ -80,11 +80,9 @@ case $? in
             xhelp
 	;;
 	
-	
-esac		
+	esac
 esac
 done
 }
-
 
 programme
