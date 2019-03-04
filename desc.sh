@@ -1,17 +1,16 @@
-doudou()
+ doudou()
 {
 yad \
    --entry \
-    --entry-label="tapez le nom du fichier" \
+    --entry-label="<span foreground='red'>tapez le nom du paquet:</span>" \
      --editable \
     --entry-text="$pck" 
 }
 
-
 desc()
 {
 pck=`doudou` 
-dpkg --print-avail $pck
-
+p=$( dpkg -s $pck) 
+yad  --title="despription" --info --text="$p" \
+ --window-icon="$DECO" --image="$DECO" --image-on-top 
 }
-

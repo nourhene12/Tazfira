@@ -1,30 +1,27 @@
 #! /bin/bash
+#!/bin/sh
 source afficher.sh
 source lister.sh
 source desc.sh
 source sauvgarder.sh
-source xhelp.sh 
+source xhelp.sh
+
 
 TITBOX=Menu
-DECO=/home/nourhene/Desktop/tazfira/index.png
-SOUND=/home/nourhene/Desktop/tazfira/b.wav
-icon=/home/nourhene/Desktop/tazfira/hello.png
-
-
-
+DECO=/home/ghassen/Bureau/tazfira/siflet.png
+SOUND=/home/ghassen/Bureau/tazfira/b.wav
+icon=/home/ghassen/Bureau/tazfira/hello.png
 db_accueil()
 {
-yad     --title=$TITBOX --text=" <span foreground='orange'><b><big><big>Choisissez la commande !</big></big></b></span>" \
-	--button=gtk-no:1 --button=gtk-yes:0 \
+yad --title=$TITBOX --text=" <span foreground='orange'><b><big><big>chosissez la commande:</big></big></b></span>" \
 	--window-icon="$DECO" --image="$DECO" --image-on-top \
-	--height=300 --list --radiolist --no-headers \
+	  --list --radiolist --no-headers \
+	--button=gtk-no:1 --button=gtk-yes:0 \
 	--column 1 --column 2 --print-column=2 \
-		 false "Inclut" true  "List" \
-		 false "Desc" false "Save" false "help"  
- 
-	
-
+		 false "<span foreground='black'><b><big>-inclut</big></b></span>" true  "<span foreground='black'><b><big>-liste</big></b></span>" \
+		 false "<span foreground='black'><b><big>-desc</big></b></span>" false "<span foreground='black'><b><big>-save</big></b></span>" false "<span foreground='black'><b><big>-help</big></b></span>"
 }
+
 
 
 
@@ -33,27 +30,28 @@ yad     --title=$TITBOX --text=" <span foreground='orange'><b><big><big>Choisiss
 
 db_notification()
 {
-aplay $SOUND 
+aplay $SOUND &
 yad  --title=$TITBOX--timeout=4 --info --text="Validée \!" \
 	 --window-icon="$DECO" --image="$DECO" --image-on-top
+       
 }
+
 loginn()
-{ 
-yad    --width=400 --title="" --text="Please enter your details:" \
-	--image="$icon" \
+{
+yad --width=400 --title="" --text="<span foreground='orange'><b><big><big>Please enter your details:</big></big></b></span>" \
+   --image="$icon" \
+--button=gtk-quit:1  --button=gtk-yes:0 \
 --form \
 --field="Last name" \
 --field="First name" \
 --field="Date of birth":DT
 w
 }
-	
-
-
 
 programme()
 {
 l=`loginn`
+
 while true
 do
 CHOIX=`db_accueil`
@@ -63,31 +61,28 @@ case $? in
 ;;
 0) # All OK
 	case $CHOIX in
-	"Inclut|")
+	"<span foreground='black'><b><big>-inclut</big></b></span>|")
                 afficher
 		db_notification
 	;;
-	"List|")
+	"<span foreground='black'><b><big>-liste</big></b></span>|")
 		lister
 	;;
-	"Desc|")
+	"<span foreground='black'><b><big>-desc</big></b></span>|")
 		desc
 		db_notification
 	;;
-	"Save|")
+	"<span foreground='black'><b><big>-save</big></b></span>|")
 		save
 		db_notification
 	;;
-	"help|")
-		xhelp
-		db_notification
+          "<span foreground='black'><b><big>-help</big></b></span>|")
+            xhelp
 	;;
 	
-	
-esac		
+	esac
 esac
 done
 }
-
 
 programme

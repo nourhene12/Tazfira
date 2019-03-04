@@ -2,7 +2,7 @@
 {
 yad \
    --entry \
-    --entry-label="entrez le nom du package que vous voulez lister" \
+    --entry-label="<span foreground='red'>entrer le nom du package:</span>" \
      --editable \
     --entry-text="$package" 
 }
