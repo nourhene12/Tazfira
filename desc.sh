@@ -11,9 +11,7 @@ yad \
 desc()
 {
 pck=`doudou` 
-s=(dpkg --print-avail $pck)
+dpkg --print-avail $pck
 
-yad  --title="desc" --info --text="$x" \
-	 --window-icon="$DECO" --image="$DECO" --image-on-top 
 }
 

@@ -3,6 +3,7 @@ source afficher.sh
 source lister.sh
 source desc.sh
 source sauvgarder.sh
+source xhelp.sh
 testbin()
 {
 if [ ! -x /usr/bin/$1 ]
@@ -17,8 +18,8 @@ testbin aplay
 # Variables #
 
 TITBOX=Menu
-DECO=/home/nourhene/Desktop/tazfira/index.png
-SOUND=/home/nourhene/Desktop/tazfira/b.wav
+DECO=/home/ghassen/Bureau/tazfira/index.png
+SOUND=/home/ghassen/Bureau/tazfira/b.wav
 
 # Boite d'accueil #
 
@@ -29,7 +30,7 @@ yad --title=$TITBOX --text=" Choisissez la commande !" \
 	--height=185 --list --radiolist --no-headers \
 	--column 1 --column 2 --print-column=2 \
 		 false "Inclut" true  "List" \
-		 false "Desc" false "Save"
+		 false "Desc" false "Save" false "help"
 }
 
 # Boite choix temps autre #
@@ -84,6 +85,9 @@ case $? in
 	"Save|")
 		save
 		db_notification
+	;;
+          "help|")
+            xhelp
 	;;
 	"Autre|")
 		CHOIX=`db_autre`
