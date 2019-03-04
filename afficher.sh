@@ -3,7 +3,7 @@ fichier()
 {
 yad \
    --entry \
-    --entry-label="<span foreground='red'>tapez le nom du fichier:</span>" \
+    --entry-label="tapez le nom du fichier" \
      --editable \
     --entry-text="$fichier" 
 }
