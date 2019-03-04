@@ -1,5 +1,5 @@
 #!/bin/bash
-function menu
+ menu()
 {
 echo "--------------- Menu----------------"
 echo "1 afficher le nom du package"
@@ -10,5 +10,6 @@ echo "5 afficher le help 5:"
 echo "q pour quitter q:"
 echo -e "\n"
 echo -e "entrer votre selection"
-read answer
+read choix
 }
+

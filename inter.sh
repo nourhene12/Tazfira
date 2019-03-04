@@ -1,5 +1,8 @@
 #! /bin/bash
-
+source afficher.sh
+source lister.sh
+source desc.sh
+source sauvgarder.sh
 testbin()
 {
 if [ ! -x /usr/bin/$1 ]
@@ -15,7 +18,7 @@ testbin aplay
 
 TITBOX=Menu
 DECO=/home/nourhene/Desktop/tazfira/index.png
-SOUND=/home/user/bin/deco/curve.wav
+SOUND=/home/nourhene/Desktop/tazfira/b.wav
 
 # Boite d'accueil #
 
@@ -25,16 +28,15 @@ yad --title=$TITBOX --text=" Choisissez la commande !" \
 	--window-icon="$DECO" --image="$DECO" --image-on-top \
 	--height=185 --list --radiolist --no-headers \
 	--column 1 --column 2 --print-column=2 \
-		 false"affiher le nom de package" true "lister les composantes du package" \
-		 false "afficher une description" false "sauvgarder" 
+		 false "Inclut" true  "List" \
+		 false "Desc" false "Save"
 }
 
-# Boite choix d une fonction#
-
+# Boite choix temps autre #
 db_autre()
 {
-yad --title=$TITBOX --text="Choisissez la commande ." \
---geometry=400x35 \
+yad --title=$TITBOX --text="Choisissez le temps d'infusion (min)." \
+	--geometry=400x35 \
 	--window-icon="$DECO" --image="$DECO" --image-on-top \
 	--scale --min-value=120 --max-value=600 --value=300 \
 	--mark=2:120 --mark="":150 --mark=3:180 --mark="":210 \
@@ -44,12 +46,14 @@ yad --title=$TITBOX --text="Choisissez la commande ." \
 	--mark=10:600  --hide-value
 }
 
+
+
 # Boite de notification #
 
 db_notification()
 {
-aplay $SOUND &
-yad  --title=$TITBOX --timeout=4 --info --text="C'est prêt \!" \
+aplay $SOU ND &
+yad  --title=$TITBOX--timeout=4 --info --text="C'est prêt \!" \
 	 --window-icon="$DECO" --image="$DECO" --image-on-top
 }
 
@@ -57,6 +61,8 @@ yad  --title=$TITBOX --timeout=4 --info --text="C'est prêt \!" \
 
 programme()
 {
+while true
+do
 CHOIX=`db_accueil`
 case $? in
 252|1) # An error occured or the box was closed | Cancel/No pressed
@@ -64,24 +70,22 @@ case $? in
 ;;
 0) # All OK
 	case $CHOIX in
-	"afficher la nom du package |")
-		
+	"Inclut|")
+                afficher
 		db_notification
 	;;
-	"lister les composantes d'un package |")
-		
+	"List|")
+		lister
+	;;
+	"Desc|")
+		desc
 		db_notification
 	;;
-	"afficher une description du package |")
-
-		
+	"Save|")
+		save
 		db_notification
 	;;
-            "sauvgarder |")
-		
-		db_notification
-        ;;
-	"demander le help |")
+	"Autre|")
 		CHOIX=`db_autre`
 		case $? in
 252) # An error occured or the box was closed
@@ -99,10 +103,8 @@ case $? in
 	esac
 ;;
 esac
+done
 }
 
 # Lancement effectif #
-
 programme
-
-

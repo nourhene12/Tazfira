@@ -1,21 +1,50 @@
 source menu.sh
-source help.sh
-source exit.sh
-source liste.sh
 source afficher.sh
-while true
-do 
-#clear
-menu
-case "$answer" in 
- 1 )xaffiche;;
- 2 )xliste;;
- 3 );;
- 4 );;
- 5 ) xxhelp ;;
- q ) xexit ;;
-esac
-#echo -e "entrer return pour continuer "
-#read input 
+source lister.sh
+source desc.sh
+source sauvgarder.sh
+source xhelp.sh
+test=1
+menuagain=0
+while [[ $test == 1 ]]
+do
+        if [[ $* ]]; then
+                        case $* in
+                    -inclut)
+                                   afficher ;;
+                    -list)
+                                    lister;;
+                    -desc)
+                                    desc;;
+                    -save)
+                                    sauvgarder;;
+                    -help)
+                                    xhelp;;
+                    esac
+                    menuagain=1
+                    test=2
+           else   
+                    menu
+                    if [[ $choix == 0 ]]; then
+                    test=2
+                    else 
+                    case $choix in 
+                    1 )
+                            afficher;;
+                    2 )
+                            lister;;
+                   3 )
+                            desc;;
+                   4 )
+                            sauvgarder;; 
+                   5 )
+                            xhelp;;
+		esac
+                menuagain=1
+                test=2
+	fi
+	fi
 done
+
+
 
